@@ -1,12 +1,12 @@
-# JavaCode
-
 import java.util.stream.IntStream;
 
 public class Main {
-
     static int max = 0;
     static int min = 100;
     static int entet = 7;
+    static int average;
+    static float averageFloat;
+    static int noda;
 
     public static void main(String[] args) {
         int[] randomArr = new int[101];
@@ -40,8 +40,6 @@ public class Main {
 
         }
         System.out.println('\n');
-        System.out.println("Минимальное число: " + min);
-        System.out.println("Максимальное число: " + max + '\n');
 
         Main.arraySort(arr);
         System.out.println("Сортированиный массив: " + '\n');
@@ -53,15 +51,26 @@ public class Main {
                 entet += 8;
             }
         }
+
+        average = IntStream.of(arr).sum();
+        averageFloat = (float)average;
+        averageFloat = averageFloat / 80;
+        System.out.println('\n');System.out.println("Среднее арифметическое: " + averageFloat);
+        System.out.println("Минимальное число: " + min);
+        System.out.print("Максимальное число: " + max + '\n');
+        System.out.println("Размах ряда: " + (max - min));
+        System.out.println("Мода: " + mostPopular(arr));
+
+
     }
 
     public static int rand() {
         int ran = 0;
         double r = Math.random();
-        if(r <= 0.5) {
+        if(r < 0.5) {
             ran = 0;
         }
-        if(r >= 0.51) {
+        if(r > 0.5) {
             ran = 1;
         }
         return ran;
@@ -85,5 +94,31 @@ public class Main {
                 arr[min_i] = tmp;
             }
         }
+    }
+
+    public static int mostPopular(int[] array) {
+        if (array == null || array.length == 0) {
+            return 0;
+        }
+        arraySort(array);
+
+        int prev = array[0];
+        int popular = array[0];
+        int count = 1;
+        int maxCount = 1;
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] == prev) {
+                count++;
+            } else {
+                if (count > maxCount) {
+                    popular = array[i - 1];
+                    maxCount = count;
+                }
+                prev = array[i];
+                count = 1;
+            }
+        }
+        return count > maxCount ? array[array.length - 1] : popular;
     }
 }
