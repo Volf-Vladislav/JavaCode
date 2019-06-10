@@ -67,9 +67,11 @@ public class Main {
             temp = temp * temp;
             sigma += temp;
         }
-        float radicalOfSigma = sigma / 50;
+        
+        sigma = sigma / 50;
+        float radicalOfSigma = sigma;
 
-        System.out.println("Дисперсия по выборке: " + (sigma / 50));
+        System.out.println("Дисперсия по выборке: " + (sigma));
         System.out.println("Среднеквадратичное отклонение: " + radical(radicalOfSigma));
 
     }
