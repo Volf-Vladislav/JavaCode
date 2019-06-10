@@ -6,7 +6,7 @@ public class Main {
     static int entet = 7;
     static int average;
     static float averageFloat;
-    static int noda;
+    static float sigma = 0;
 
     public static void main(String[] args) {
         int[] randomArr = new int[101];
@@ -23,17 +23,17 @@ public class Main {
         }
 
         for (int i = 0; i < arr.length; i++) {
-            if(max < arr[i]) {
+            if (max < arr[i]) {
                 max = arr[i];
             }
-            if(min > arr[i]) {
+            if (min > arr[i]) {
                 min = arr[i];
             }
         }
 
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
-            if(i == entet) {
+            if (i == entet) {
                 System.out.println();
                 entet += 8;
             }
@@ -53,15 +53,36 @@ public class Main {
         }
 
         average = IntStream.of(arr).sum();
-        averageFloat = (float)average;
+        averageFloat = (float) average;
         averageFloat = averageFloat / 80;
-        System.out.println('\n');System.out.println("Среднее арифметическое: " + averageFloat);
+        System.out.println('\n');
+        System.out.println("Среднее арифметическое: " + averageFloat);
         System.out.println("Минимальное число: " + min);
         System.out.print("Максимальное число: " + max + '\n');
         System.out.println("Размах ряда: " + (max - min));
         System.out.println("Мода: " + mostPopular(arr));
+        for (int i = 0; i < arr.length; i++) {
+            float temp;
+            temp = 50 - arr[i];
+            temp = temp * temp;
+            sigma += temp;
+        }
+        float radicalOfSigma = sigma / 50;
+
+        System.out.println("Дисперсия по выборке: " + (sigma / 50));
+        System.out.println("Среднеквадратичное отклонение: " + radical(radicalOfSigma));
+
+    }
 
 
+    public static double radical(float number) {
+        double t;
+        double squareRoot = number / 2;
+        do {
+            t = squareRoot;
+            squareRoot = (t + (number / t)) / 2;
+        } while ((t - squareRoot) != 0);
+        return squareRoot;
     }
 
     public static int rand() {
